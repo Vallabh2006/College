@@ -1,65 +1,63 @@
 #include <iostream>
 #include <string>
-
 using namespace std;
 
-int pre(char sym) {
-
-    if (sym == '^')
-        return 3;
-
-    if (sym == '*' || sym == '/')
-        return 2;
-
-    if (sym == '+' || sym == '-')
-        return 1;
-
+int pre(char op) {
+    if (op == '^') return 3;
+    if (op == '*' || op == '/') return 2;
+    if (op == '+' || op == '-') return 1;
     return 0;
 }
 
+void push(char stack[], int &top, char value) {
+    stack[++top] = value;
+}
+
+char pop(char stack[], int &top) {
+    return stack[top--];
+}
+
+char peek(char stack[], int top) {
+    return stack[top];
+}
 
 int main() {
 
-    string infix;
-    string postfix = "";
-
-    char myArr[100], current;
+    string infix, postfix = "";
+    char stack[100];
     int top = -1;
 
     cout << "Enter Infix Expression: ";
     cin >> infix;
 
-    for (int i = 0; i < infix.length(); i++) {
+    for (char ch : infix) {
 
-        current = infix[i];
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
+            postfix += ch;
 
-        if (isalnum(current)) {
-            postfix += current;
-        } else if (current == '(') {
-            top++;
-            myArr[top] = current;
-        } else if (current == ')') {
-            while (top != -1 && myArr[top] != '(') {
-                postfix += myArr[top];
-                top--;
+        else if (ch == '(')
+            push(stack, top, ch);
+
+        else if (ch == ')') {
+            while (peek(stack, top) != '(')
+                postfix += pop(stack, top);
+
+            pop(stack, top);
+        }
+
+        else {
+            while (top != -1 && peek(stack, top) != '(' && pre(peek(stack, top)) >= pre(ch)) {
+                postfix += pop(stack, top);
             }
-            top--;
-        } else {
-            while (top != -1 && myArr[top] != '(' && pre(myArr[top]) >= pre(current)) {
-                postfix += myArr[top];
-                top--;
-            }
-            top++;
-            myArr[top] = current;
+
+            push(stack, top, ch);
         }
     }
 
     while (top != -1) {
-
-        postfix += myArr[top];
-        top--;
+        postfix += pop(stack, top);
     }
-
+    
     cout << "Postfix Expression: " << postfix << endl;
 
     return 0;

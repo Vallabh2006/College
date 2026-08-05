@@ -82,7 +82,6 @@ int main() {
     cout << "\nEnter stack elements:\n";
     input(myArr, top, n);
 
-
     char choice;
 
     while (true) {
