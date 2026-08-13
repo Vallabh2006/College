@@ -9,4 +9,4 @@ for i in range(len(grades)):
         grade = grades[i]
         break
 
-print("\nThe student's grade is:", grade, "\n")
+print("The student's grade is:", grade, "\n")

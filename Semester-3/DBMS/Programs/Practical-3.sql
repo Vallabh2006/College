@@ -46,7 +46,10 @@ SELECT * FROM employee_r;
 
 
 /*
-ALTER TABLE employee_r # (theres no primary key in the table employee_r to begin with)
+ALTER TABLE employee_r
+ADD PRIMARY KEY;
+
+ALTER TABLE employee_r
 DROP PRIMARY KEY;
 
 TRUNCATE TABLE employee_r;

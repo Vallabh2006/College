@@ -1,7 +1,7 @@
 num1 = float(input("\nEnter first number: "))
 num2 = float(input("Enter second number: "))
 
-print("\nAddition:", num1 + num2)
-print("Subtraction:", num1 - num2)
-print("Multiplication:", num1 * num2)
-print("Division:", num1 / num2, "\n")
+print("\nAddition:", round(num1 + num2, 3))
+print("Subtraction:", round(num1 - num2, 3))
+print("Multiplication:", round(num1 * num2, 3))
+print("Division:", round(num1 / num2, 3), "\n")
