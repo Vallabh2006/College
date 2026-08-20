@@ -12,7 +12,7 @@ def is_prime(num):
 
 def prime_numbers(start, end):
 
-    for num in range(start, end + 1):
+    for num in range(start+1, end):
         if is_prime(num):
             print(num, end=" ")
 

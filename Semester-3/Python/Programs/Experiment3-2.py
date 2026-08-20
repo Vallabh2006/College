@@ -11,4 +11,4 @@ def factorial(num):
 
 num = int(input("\nEnter a number: "))
 
-print("\nFactorial of", num, "is:", factorial(num), "\n")
+print("Factorial of", num, "is:", factorial(num), "\n")
