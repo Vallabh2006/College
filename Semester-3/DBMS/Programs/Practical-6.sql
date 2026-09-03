@@ -61,22 +61,10 @@ ORDER BY FIELD(region_id, 1, 2, 5);
 
 
 /*
-SELECT productname, category_id
+SELECT category_id, CONCAT('P', product_id) AS product_id, productname
 FROM products
 WHERE category_id IN (3, 1, 5)
 ORDER BY FIELD(category_id, 3, 1, 5);
-*/
-
-
-
-/*
-SELECT 
-    CONCAT('P', product_id) AS id,
-    productname,
-    category_id
-FROM products
-WHERE product_id IN (1, 2, 3, 5, 6, 7, 9)
-ORDER BY product_id;  
 */
 
 
