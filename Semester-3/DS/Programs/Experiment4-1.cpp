@@ -9,20 +9,7 @@ int pre(char op) {
     return 0;
 }
 
-void push(char stack[], int &top, char value) {
-    stack[++top] = value;
-}
-
-char pop(char stack[], int &top) {
-    return stack[top--];
-}
-
-char peek(char stack[], int top) {
-    return stack[top];
-}
-
 int main() {
-
     string infix, postfix = "";
     char stack[100];
     int top = -1;
@@ -31,33 +18,30 @@ int main() {
     cin >> infix;
 
     for (char ch : infix) {
-
-        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z'))
+        if (isalpha(ch))
             postfix += ch;
 
         else if (ch == '(')
-            push(stack, top, ch);
+            stack[++top] = ch;
 
         else if (ch == ')') {
-            while (peek(stack, top) != '(')
-                postfix += pop(stack, top);
-
-            pop(stack, top);
+            while (stack[top] != '(')
+                postfix += stack[top--];
+            top--;
         }
 
         else {
-            while (top != -1 && peek(stack, top) != '(' && pre(peek(stack, top)) >= pre(ch)) {
-                postfix += pop(stack, top);
-            }
+            while (top != -1 && stack[top] != '(' &&
+                   pre(stack[top]) >= pre(ch))
+                postfix += stack[top--];
 
-            push(stack, top, ch);
+            stack[++top] = ch;
         }
     }
 
-    while (top != -1) {
-        postfix += pop(stack, top);
-    }
-    
+    while (top != -1)
+        postfix += stack[top--];
+
     cout << "Postfix Expression: " << postfix << endl;
 
     return 0;

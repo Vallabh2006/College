@@ -12,7 +12,11 @@ def find_max_min(nums):
 
     return maximum, minimum
 
-nums = [int(x) for x in input("\nEnter numbers separated by spaces: ").split()]
+nums = []
+values = input("\nEnter numbers separated by spaces: ").split()
+
+for x in values:
+    nums.append(int(x))
 
 maximum, minimum = find_max_min(nums)
 

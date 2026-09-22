@@ -1,6 +1,6 @@
 try:
-    num1 = int(input("\nEnter the number (?/y): "))
-    num2 = int(input("Enter the second (" + str(num1) + "/?): "))
+    num1 = int(input("\nEnter the first number (?/y): "))
+    num2 = int(input("Enter the second number (" + str(num1) + "/?): "))
 
     result = num1 / num2
 

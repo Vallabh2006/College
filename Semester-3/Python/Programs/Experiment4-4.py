@@ -1,10 +1,8 @@
-def factorial(num):
+factorial = lambda n: 1 if n <= 1 else n * factorial(n - 1)
 
-    if num == 0 or num == 1:
-        return 1
+num = int(input("Enter a number: "))
 
-    return num * factorial(num - 1)
-
-num = int(input("\nEnter a number: "))
-
-print("\nFactorial of", num, "is:", factorial(num), "\n")
+if num < 0:
+    print("Factorial does not exist.")
+else:
+    print("Factorial =", factorial(num))

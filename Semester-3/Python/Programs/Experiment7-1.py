@@ -7,4 +7,4 @@ try:
     print("\nResult:", round(result, 2), "\n")
 
 except ZeroDivisionError:
-    print("\nError: Cannot divide by Xero.\n")
+    print("\nError: Cannot divide by Zero.\n")
