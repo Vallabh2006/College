@@ -1,7 +1,7 @@
-import pygame, os
+import pygame, os, time
 from PIL import Image
 
-file_name = input("\nFile name: ")
+file_name = "cat"
 
 image_dir = os.path.join(
     os.path.dirname(__file__),
@@ -10,17 +10,24 @@ image_dir = os.path.join(
 
 background_dir = os.path.join(
     os.path.dirname(__file__),
-    "../Material/sky.jpg"
+    "../Material/plank.jpg"
 )
 
+gravity = 10 # 9.81
+mass = 5.0
+pixels_per_meter = 100
+
+speed = 0.0
+resize_speed = 350
+
 fps = 100
-gif_speed = int(input("Gif Speed: "))
+gif_speed = 30
 
 height = 50
 width = 50
 
-screen_height = 800
-screen_width = 1000
+screen_height = 1100
+screen_width = 300
 
 pygame.init()
 
@@ -54,16 +61,16 @@ background = pygame.transform.scale(
 frame_index = 0
 timer = 0
 
-x = 100
-y = 100
-
-speed = 300
-resize_speed = 350
+x = (screen_width - width) / 2
+y = (screen_height - height) / 2
 
 running = True
 
 print("Frames:", len(frames))
 print("Frame size:", frames[0].get_size())
+print("Mass:", mass, "kg")
+print("Gravity:", gravity, "m/s²")
+print("Scale:", pixels_per_meter, "pixels/m")
 
 while running:
     dt = clock.tick(fps) / 1000
@@ -75,32 +82,19 @@ while running:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_q]:
-        print("Quit")
         running = False
 
     if keys[pygame.K_LEFT]:
-        if x <= -width:
-            x = screen_width
-        else:
-            x -= speed * dt
+        x -= 500 * dt
 
     if keys[pygame.K_RIGHT]:
-        if x >= screen_width:
-            x = -width
-        else:
-            x += speed * dt
+        x += 500 * dt
 
     if keys[pygame.K_UP]:
-        if y <= -height:
-            y = screen_height
-        else:
-            y -= speed * dt
+        y -= 500 * dt
 
     if keys[pygame.K_DOWN]:
-        if y >= screen_height:
-            y = -height
-        else:
-            y += speed * dt
+        y += 500 * dt
 
     if keys[pygame.K_EQUALS]:
         width = min(width + resize_speed * dt, 400)
@@ -109,6 +103,23 @@ while running:
     if keys[pygame.K_MINUS]:
         width = max(width - resize_speed * dt, 20)
         height = max(height - resize_speed * dt, 20)
+
+    force = mass * gravity
+    acceleration = force / mass
+
+    speed += acceleration * dt
+
+    y += speed * pixels_per_meter * dt
+
+    if y >= screen_height:
+        y = -height
+        speed = 0
+
+    if x <= -width:
+        x = screen_width
+
+    if x >= screen_width:
+        x = -width
 
     timer += clock.get_time()
 
