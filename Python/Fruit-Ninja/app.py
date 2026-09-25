@@ -1,142 +1,33 @@
-import pygame, os, time
-from PIL import Image
+import sys
+import os
+import pygame
 
-file_name = "cat"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-image_dir = os.path.join(
-    os.path.dirname(__file__),
-    f"../Material/{file_name}.gif"
-)
+from helper.coords import screen_width, screen_height, fps
+from helper.gui import Graphics
+from helper.handler import GameLogic
 
-background_dir = os.path.join(
-    os.path.dirname(__file__),
-    "../Material/plank.jpg"
-)
+def main():
+    pygame.init()
+    pygame.display.set_caption("Fruit Ninja")
 
-gravity = 10 # 9.81
-mass = 5.0
-pixels_per_meter = 100
+    screen = pygame.display.set_mode((screen_width, screen_height))
+    clock = pygame.time.Clock()
 
-speed = 0.0
-resize_speed = 350
+    graphics = Graphics()
+    game = GameLogic(graphics)
 
-fps = 100
-gif_speed = 30
+    running = True
+    while running:
+        dt = clock.tick(fps) / 1000.0
 
-height = 50
-width = 50
+        running = game.handle_input()
+        game.update(dt)
+        game.draw(screen)
 
-screen_height = 1100
-screen_width = 300
+    pygame.quit()
+    sys.exit()
 
-pygame.init()
-
-screen = pygame.display.set_mode((screen_width, screen_height))
-clock = pygame.time.Clock()
-
-gif = Image.open(image_dir)
-
-frames = []
-
-for i in range(gif.n_frames):
-    gif.seek(i)
-
-    frame = gif.convert("RGBA")
-    frame = frame.resize((width, height))
-
-    frame = pygame.image.fromstring(
-        frame.tobytes(),
-        frame.size,
-        frame.mode
-    )
-
-    frames.append(frame)
-
-background = pygame.image.load(background_dir)
-background = pygame.transform.scale(
-    background,
-    (screen_width, screen_height)
-)
-
-frame_index = 0
-timer = 0
-
-x = (screen_width - width) / 2
-y = (screen_height - height) / 2
-
-running = True
-
-print("Frames:", len(frames))
-print("Frame size:", frames[0].get_size())
-print("Mass:", mass, "kg")
-print("Gravity:", gravity, "m/s²")
-print("Scale:", pixels_per_meter, "pixels/m")
-
-while running:
-    dt = clock.tick(fps) / 1000
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    keys = pygame.key.get_pressed()
-
-    if keys[pygame.K_q]:
-        running = False
-
-    if keys[pygame.K_LEFT]:
-        x -= 500 * dt
-
-    if keys[pygame.K_RIGHT]:
-        x += 500 * dt
-
-    if keys[pygame.K_UP]:
-        y -= 500 * dt
-
-    if keys[pygame.K_DOWN]:
-        y += 500 * dt
-
-    if keys[pygame.K_EQUALS]:
-        width = min(width + resize_speed * dt, 400)
-        height = min(height + resize_speed * dt, 400)
-
-    if keys[pygame.K_MINUS]:
-        width = max(width - resize_speed * dt, 20)
-        height = max(height - resize_speed * dt, 20)
-
-    force = mass * gravity
-    acceleration = force / mass
-
-    speed += acceleration * dt
-
-    y += speed * pixels_per_meter * dt
-
-    if y >= screen_height:
-        y = -height
-        speed = 0
-
-    if x <= -width:
-        x = screen_width
-
-    if x >= screen_width:
-        x = -width
-
-    timer += clock.get_time()
-
-    if timer >= gif_speed:
-        frame_index = (frame_index + 1) % len(frames)
-        timer = 0
-
-    screen.blit(background, (0, 0))
-
-    screen.blit(
-        pygame.transform.scale(
-            frames[frame_index],
-            (int(width), int(height))
-        ),
-        (int(x), int(y))
-    )
-
-    pygame.display.flip()
-
-pygame.quit()
+if __name__ == "__main__":
+    main()
