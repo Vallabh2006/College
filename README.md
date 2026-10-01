@@ -3,7 +3,7 @@
 ## Database Management System (DBMS)
 
 - Material: `Manual.pdf` `Practicals.pdf`
--  Practicals:  ` 1 --> 8 `
+-  Practicals:  ` 1 --> 9 `
 
 ---
 
@@ -16,15 +16,21 @@
 
 ## Introduction to Python Programming (IPP) 
 
-- Material: `Manual.pdf` `Practicals.pdf` `cat.gif` `plank.jpg` `sample1.txt` `sample2.txt` `sample3.txt` `test.txt`
-- Experiments: `1.1 --> 7.3`
+- Material: `apple.png` `bomb.png` `cat.gif` `manga.png` `Manual.pdf` `plank.jpg` `Practicals.pdf` `sample1.txt` `sample2.txt` `sample3.txt` `strawberry.png` `test.txt`
+- Experiments: `1.1 --> 8.3`
 - Project: Fruit-Ninja
 
 ```text
 Fruit-Ninja/
 │
 ├── app.py
-├── myenv/
+├── helper/
+│     ├── __init__.py
+│     ├── coords.py
+│     ├── coords.py
+│     ├── gui.py
+│     ├── handler.py
+│     └── physics.py
 └── requirements.txt
 ```
 
@@ -49,5 +55,5 @@ Fruit-Ninja/
 ```
 
 ---
-Latest changes @ 24 Sept 2026, 12:18 pm
+Latest changes @ 1 Oct 2026, 12:7 pm
 ---
