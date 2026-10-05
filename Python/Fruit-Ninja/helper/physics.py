@@ -1,9 +1,9 @@
 import random
 import math
-from helper.coords import screen_width, screen_height, gravity
+from helper.coords import SCREEN_WIDTH, SCREEN_HEIGHT, GRAVITY, FRUIT_SIZE
 
 class Fruit:
-    def __init__(self, kind, x, y, vx, vy, size=70):
+    def __init__(self, kind, x, y, vx, vy, size=FRUIT_SIZE):
         self.kind = kind
         self.x = float(x)
         self.y = float(y)
@@ -12,41 +12,24 @@ class Fruit:
         self.size = size
         self.sliced = False
 
-    def update(self, dt):
-        self.vy += gravity * dt
-        self.x += self.vx * dt
-        self.y += self.vy * dt
+    def update(self):
+        self.vy += GRAVITY
+        self.x += self.vx
+        self.y += self.vy
 
     def is_out(self):
-        return self.y > screen_height + 50 and self.vy > 0
+        return self.y > SCREEN_HEIGHT + 20 and self.vy > 0
 
-    def is_clicked(self, pos):
-        cx = self.x + self.size / 2
-        cy = self.y + self.size / 2
-        return math.hypot(pos[0] - cx, pos[1] - cy) <= (self.size / 2 + 5)
-
-    def is_cut_by_line(self, p1, p2):
-        cx = self.x + self.size / 2
-        cy = self.y + self.size / 2
-        radius = self.size / 2 + 5
-
-        x1, y1 = p1
-        x2, y2 = p2
-        dx = x2 - x1
-        dy = y2 - y1
-        length_sq = dx * dx + dy * dy
-
-        if length_sq == 0:
-            return math.hypot(x1 - cx, y1 - cy) <= radius
-
-        t = max(0.0, min(1.0, ((cx - x1) * dx + (cy - y1) * dy) / length_sq))
-        proj_x = x1 + t * dx
-        proj_y = y1 + t * dy
-        return math.hypot(proj_x - cx, proj_y - cy) <= radius
+    def is_hit(self, mouse_pos):
+        center_x = self.x + self.size / 2
+        center_y = self.y + self.size / 2
+        radius = self.size / 2
+        distance = math.hypot(mouse_pos[0] - center_x, mouse_pos[1] - center_y)
+        return distance <= radius
 
 
 class HalfPiece:
-    def __init__(self, kind, is_left, x, y, vx, vy, size=70):
+    def __init__(self, kind, is_left, x, y, vx, vy, size=FRUIT_SIZE):
         self.kind = kind
         self.is_left = is_left
         self.x = float(x)
@@ -55,27 +38,28 @@ class HalfPiece:
         self.vy = float(vy)
         self.size = size
 
-    def update(self, dt):
-        self.vy += gravity * dt
-        self.x += self.vx * dt
-        self.y += self.vy * dt
+    def update(self):
+        self.vy += GRAVITY
+        self.x += self.vx
+        self.y += self.vy
 
     def is_out(self):
-        return self.y > screen_height + 50
+        return self.y > SCREEN_HEIGHT + 20
 
 
 def spawn_item(bomb_chance=0.2):
-    is_bomb = (random.random() < bomb_chance)
-    kind = "bomb" if is_bomb else random.choice(["apple", "mango", "strawberry"])
+    if random.random() < bomb_chance:
+        kind = "bomb"
+    else:
+        kind = random.choice(["apple", "mango", "strawberry"])
 
-    x = random.uniform(100, screen_width - 180)
-    y = screen_height + 10
+    x = random.randint(120, SCREEN_WIDTH - 180)
+    y = SCREEN_HEIGHT
+    vy = random.uniform(-15.0, -13.5)
 
-    apex_y = random.uniform(120, 240)
-    jump_height = y - apex_y
-    vy = -math.sqrt(2 * gravity * jump_height)
-
-    center = screen_width / 2.0
-    vx = (center - (x + 35)) * random.uniform(0.7, 1.2) + random.uniform(-20, 20)
+    if x < SCREEN_WIDTH / 2:
+        vx = random.uniform(0.8, 2.2)
+    else:
+        vx = random.uniform(-2.2, -0.8)
 
     return Fruit(kind, x, y, vx, vy)

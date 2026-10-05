@@ -1,11 +1,11 @@
-import pygame
 import os
-from helper.coords import screen_width, screen_height, get_paths
+import pygame
+from helper.coords import SCREEN_WIDTH, SCREEN_HEIGHT, FRUIT_SIZE, get_asset_paths
 
 class Graphics:
-    def __init__(self, size=70):
+    def __init__(self, size=FRUIT_SIZE):
         self.size = size
-        self.paths = get_paths()
+        self.paths = get_asset_paths()
         self.images = {}
         self.halves = {}
         self.background = None
@@ -24,7 +24,7 @@ class Graphics:
         if bg_path and os.path.exists(bg_path):
             try:
                 bg = pygame.image.load(bg_path).convert()
-                self.background = pygame.transform.scale(bg, (screen_width, screen_height))
+                self.background = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
             except Exception:
                 self.background = self._make_fallback_bg()
         else:
@@ -44,13 +44,19 @@ class Graphics:
                 self._make_fallback_fruit(name)
 
     def _make_fallback_bg(self):
-        surf = pygame.Surface((screen_width, screen_height))
+        surf = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
         surf.fill((60, 40, 25))
         return surf
 
     def _make_fallback_fruit(self, name):
         surf = pygame.Surface((self.size, self.size), pygame.SRCALPHA)
-        col = (220, 30, 30) if name == "apple" else (240, 160, 20) if name == "mango" else (230, 20, 80) if name == "strawberry" else (30, 30, 30)
+        colors = {
+            "apple": (220, 30, 30),
+            "mango": (240, 160, 20),
+            "strawberry": (230, 20, 80),
+            "bomb": (30, 30, 30)
+        }
+        col = colors.get(name, (200, 200, 200))
         pygame.draw.circle(surf, col, (self.size // 2, self.size // 2), self.size // 2 - 2)
         self.images[name] = surf
         self._create_halves(name, surf)
@@ -59,11 +65,8 @@ class Graphics:
         w, h = img.get_size()
         half_w = w // 2
 
-        left_surf = pygame.Surface((half_w, h), pygame.SRCALPHA)
-        left_surf.blit(img, (0, 0), (0, 0, half_w, h))
-
-        right_surf = pygame.Surface((w - half_w, h), pygame.SRCALPHA)
-        right_surf.blit(img, (0, 0), (half_w, 0, w - half_w, h))
+        left_surf = img.subsurface(pygame.Rect(0, 0, half_w, h)).copy()
+        right_surf = img.subsurface(pygame.Rect(half_w, 0, w - half_w, h)).copy()
 
         self.halves[name] = (left_surf, right_surf)
 
@@ -91,17 +94,17 @@ class Graphics:
 
         lives_str = "Lives: " + "X " * max(0, lives)
         lives_text = self.font_medium.render(lives_str.strip(), True, (255, 80, 80))
-        screen.blit(lives_text, (screen_width - lives_text.get_width() - 20, 20))
+        screen.blit(lives_text, (SCREEN_WIDTH - lives_text.get_width() - 20, 20))
 
         if game_over:
-            overlay = pygame.Surface((screen_width, screen_height), pygame.SRCALPHA)
+            overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
             overlay.fill((0, 0, 0, 160))
             screen.blit(overlay, (0, 0))
 
             go_txt = self.font_large.render("GAME OVER", True, (255, 50, 50))
-            go_rect = go_txt.get_rect(center=(screen_width // 2, screen_height // 2 - 30))
+            go_rect = go_txt.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 30))
             screen.blit(go_txt, go_rect)
 
             res_txt = self.font_medium.render("Click or Press SPACE to Restart", True, (255, 255, 255))
-            res_rect = res_txt.get_rect(center=(screen_width // 2, screen_height // 2 + 30))
+            res_rect = res_txt.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30))
             screen.blit(res_txt, res_rect)

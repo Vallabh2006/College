@@ -4,15 +4,14 @@ import pygame
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from helper.coords import screen_width, screen_height, fps
+from helper.coords import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
 from helper.gui import Graphics
 from helper.handler import GameLogic
 
 def main():
     pygame.init()
-    pygame.display.set_caption("Fruit Ninja")
-
-    screen = pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption("Fruit Ninja - Python Mini Project")
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 
     graphics = Graphics()
@@ -20,10 +19,9 @@ def main():
 
     running = True
     while running:
-        dt = clock.tick(fps) / 1000.0
-
+        clock.tick(FPS)
         running = game.handle_input()
-        game.update(dt)
+        game.update()
         game.draw(screen)
 
     pygame.quit()
