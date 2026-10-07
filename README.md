@@ -11,7 +11,20 @@
 
 - Material: `Manual.pdf`
 - Experiments: `1.1 --> 6.1`
+- Project: Huffman
 
+```text
+Huffman/
+│
+├── instructions.txt
+├── source/
+│     ├── compress.cpp
+│     ├── extract.cpp
+│     └── library.h
+├── compress
+├── extract
+└── sample.txt
+```
 ---
 
 ## Introduction to Python Programming (IPP) 
@@ -55,5 +68,5 @@ Fruit-Ninja/
 ```
 
 ---
-Latest changes @ 5 Oct 2026, 5:57 am
+Latest changes @ 7 Oct 2026, 9:06 am
 ---

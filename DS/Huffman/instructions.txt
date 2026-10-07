@@ -1,0 +1,10 @@
+1. Compile: (Make sure you are in Huffman folder)
+CLI: g++ -O2 source/compress.cpp -o compress && g++ -O2 source/extract.cpp -o extract
+
+2. Compress:
+CLI: ./compress <input_file> <output_file.huff>
+Example: ./compress sample.txt sample.huff
+
+3. Extract:
+CLI: ./extract <compressed_file.huff> <output_file>
+Example: ./extract sample.huff restored.txt
