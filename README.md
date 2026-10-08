@@ -3,14 +3,15 @@
 ## Database Management System (DBMS)
 
 - Material: `Manual.pdf` `Practicals.pdf`
--  Practicals:  ` 1 --> 9 `
+- Practicals:  ` 1 --> 11 `
+- Seminar: Railway Ticket Booking Management System
 
 ---
 
 ## Data Structures (DS)
 
 - Material: `Manual.pdf`
-- Experiments: `1.1 --> 6.1`
+- Experiments: `1 --> 11`
 - Project: Huffman
 
 ```text
@@ -30,8 +31,8 @@ Huffman/
 ## Introduction to Python Programming (IPP) 
 
 - Material: `apple.png` `bomb.png` `cat.gif` `manga.png` `Manual.pdf` `plank.jpg` `Practicals.pdf` `sample1.txt` `sample2.txt` `sample3.txt` `strawberry.png` `test.txt`
-- Experiments: `1.1 --> 8.3`
-- Project: Fruit-Ninja
+- Experiments: `1 --> 10`
+- Mini Project: Fruit-Ninja
 
 ```text
 Fruit-Ninja/
@@ -54,10 +55,12 @@ Fruit-Ninja/
 │
 ├── DBMS/
 │ ├── Material/
+│ ├── Seminar/
 │ └── Programs/
 │
 ├── DS/
 │ ├── Material/
+│ ├── Huffman/
 │ ├── Output/
 │ └── Programs/
 │
@@ -68,5 +71,5 @@ Fruit-Ninja/
 ```
 
 ---
-Latest changes @ 7 Oct 2026, 9:06 am
+Latest changes @ 8 Oct 2026, 10:22 am
 ---
