@@ -1,16 +1,17 @@
-stack = []
+stack = [4, 3, 5, 6]
 
-n = int(input("\nEnter number of Elements: "))
+def push():
+    stack.append(int(input("Enter Element to Push: ")))
+    display()
 
-print()
+def pop():
+    if stack:
+        print("Popped Element:", stack.pop())
+    display()
 
-for i in range(n):
-    stack.append(int(input("Enter the " + str(i + 1) + " Element: ")))
+def display():
+    print("Stack:", stack)
 
-print("\nStack:", stack)
-
-print("\nPopped Element ", len(stack), ": ", stack.pop())
-print("Stack after Pop:", stack)
-
-stack.append(int(input("\nElement to Push: ")))
-print("Stack after Push:", stack, "\n")
+display()
+push()
+pop()

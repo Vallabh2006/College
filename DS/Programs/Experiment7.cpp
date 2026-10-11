@@ -99,20 +99,20 @@ public:
 int main() {
     CircularList list;
     int choice, val, key;
+    cout <<"1. Insert beginning, 2. Insert end, 3. Insert after,"
+        << "Delete first, 5. Delete last, 6. Delete after"
+        << "7. Display, 0. Exit";
     do {
-        cout << "\n--- Circular Linked List Menu ---\n"
-             << "1. Insert at beginning\n2. Insert at end\n3. Insert after a given node\n"
-             << "4. Delete first node\n5. Delete last node\n6. Delete node after a given node\n"
-             << "7. Display\n0. Exit\nEnter choice: ";
+        cout << "\nEnter choice: ";
         cin >> choice;
         switch (choice) {
             case 1: cout << "Value: "; cin >> val; list.insertBeginning(val); break;
             case 2: cout << "Value: "; cin >> val; list.insertEnd(val); break;
-            case 3: cout << "After which node? "; cin >> key;
+            case 3: cout << "After index: "; cin >> key;
                     cout << "Value: "; cin >> val; list.insertAfter(key, val); break;
             case 4: list.deleteFirst(); break;
             case 5: list.deleteLast(); break;
-            case 6: cout << "Delete node after which node? "; cin >> key; list.deleteAfter(key); break;
+            case 6: cout << "Delete after: "; cin >> key; list.deleteAfter(key); break;
             case 7: list.display(); break;
             case 0: cout << "Bye!\n"; break;
             default: cout << "Invalid choice.\n";

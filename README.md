@@ -12,7 +12,7 @@
 
 - Material: `Manual.pdf`
 - Experiments: `1 --> 11`
-- Project: Huffman
+- Project: Huffman Text Compression
 
 ```text
 Huffman/
@@ -24,13 +24,15 @@ Huffman/
 │     └── library.h
 ├── compress
 ├── extract
+├── Huffman-Compression.pdf
+├── img.png
 └── sample.txt
 ```
 ---
 
 ## Introduction to Python Programming (IPP) 
 
-- Material: `apple.png` `bomb.png` `cat.gif` `manga.png` `Manual.pdf` `plank.jpg` `Practicals.pdf` `sample1.txt` `sample2.txt` `sample3.txt` `strawberry.png` `test.txt`
+- Material: `apple.png` `bomb.png` `mango.png` `Manual.pdf` `plank.jpg` `Practicals.pdf` `sample1.txt` `sample2.txt` `sample3.txt` `strawberry.png` `test.txt`
 - Experiments: `1 --> 10`
 - Mini Project: Fruit-Ninja
 
@@ -38,6 +40,7 @@ Huffman/
 Fruit-Ninja/
 │
 ├── app.py
+├── Fruit-Ninja.pdf
 ├── helper/
 │     ├── __init__.py
 │     ├── coords.py
@@ -71,5 +74,5 @@ Fruit-Ninja/
 ```
 
 ---
-Latest changes @ 8 Oct 2026, 10:22 am
+Latest changes @  Oct 11 2026, 5:52 pm
 ---

@@ -22,9 +22,9 @@ void postorder(Node* r) { if (r) { postorder(r->left); postorder(r->right); cout
 int main() {
     Node* root = nullptr;
     int n, val;
-    cout << "How many nodes? ";
+    cout << "Number of nodes: ";
     cin >> n;
-    cout << "Enter " << n << " values: ";
+    cout << "Enter values: \n";
     for (int i = 0; i < n; i++) {
         cin >> val;
         root = insert(root, val);

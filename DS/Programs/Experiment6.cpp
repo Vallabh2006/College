@@ -9,6 +9,7 @@ struct myNode {
 
 myNode *head = NULL;
 
+
 void insertBeg(int value) {
     myNode *p = new myNode{value, head};
     head = p;
@@ -74,8 +75,9 @@ int main() {
         i++;
     }
 
+    cout << "\n1) Insert Front, 2) Insert Rear, 3) Insert After, 4) Display, Q) Quit";
+
     while (true) {
-        cout << "\n1) Insert Front, 2) Insert Rear, 3) Insert After, 4) Display, Q) Quit";
         cout << "\nChoice: ";
         cin >> choice;
 
